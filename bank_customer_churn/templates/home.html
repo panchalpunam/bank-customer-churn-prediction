@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Bank Customer Churn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 600px; 
+            margin: 0 auto; 
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            
+            
+        }
+        input[type="text"],
+         {
+            width: 50%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+        display: none;
+        }
+
+        .popup {
+          
+          background-color: red;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 5px;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+          z-index: 1000;
+          display: none;
+        }
+
+        .popup h3 {
+        margin: 0;
+        font-size: 24px;
+        }
+      
+    </style>
+</head>
+<body>
+  <div class="container">
+        <h1>Bank Customer Churn Prediction</h1>
+       
+        <form id="customer-form" method="post" >
+            {% csrf_token %}
+ 
+      <label for="credit-score">Credit Score</label>
+      <input type="number" id="credit-score" name="creditscore" required>
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="tenure">Tenure</label>
+      <input type="number" id="tenure" name="tenure" required>
+          
+      <label for="balance">Balance</label>
+      <input type="number" id="balance" name="balance" required>   
+          
+      <label for="num-of-products">Number of Products</label>
+      <input type="number" id="num-of-products" name="num-of-products" required>
+
+      <label for="has-credit-card">Has Credit Card</label>
+      <select id="has-credit-card" name="has-credit-card" required>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+          
+      <label for="is-active-member">Is Active Member</label>
+      <select id="is-active-member" name="is-active-member" required>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+       </select>   
+
+       <label for="salary">Salary</label>
+        <input type="number" id="salary" name="salary" required>
+
+       <label for="geography">Geography</label>
+        <select id="geography" name="geography" required>
+        <option value="spain">Spain</option>
+        <option value="germany">Germany</option>
+        <option value="france">France</option>
+        </select>   
+          
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        </select>
+            <br>
+            <br>
+      <button type="submit" id="submitButton" >Submit</button>
+         
+     </form>
+    <h3 class="popup" role="alert">
+    <span id="popupHeading">{{ result }}</span>
+    </h3>
+    
+    
+    </div>
+  
+  <script>
+  // JavaScript to show and hide the popup
+  function showPopup(message, duration) {
+    const popupHeading = document.getElementById('popupHeading');
+    
+    popupHeading.textContent = message;
+    
+    const popup = popupHeading.parentElement;
+     popup.style.display = 'inline-block';
+      popup.style.opacity = 1;
+    
+    setTimeout(() => {
+      popup.style.opacity = 0;
+      document.getElementById('customer-form').reset();
+    }, duration);
+  }
+  
+    const resultFromDjango = "{{ result }}"; 
+    const duration = 4000; 
+    
+    showPopup(resultFromDjango, duration);
+  
+</script>
+  
+</body>
+</html>
